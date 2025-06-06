@@ -199,7 +199,7 @@ h3 { font-size: 1.5rem; }
 
 /* --- Hero Section --- */
 .hero-section {
-    background: url('../images/hero-bg.jpg') no-repeat center center/cover; /* YOUR HERO IMAGE */
+    background: url('../images/hero-bg.jpeg') no-repeat center center/cover; /* YOUR HERO IMAGE */
     height: 100vh;
     min-height: 600px;
     display: flex;
