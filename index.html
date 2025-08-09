@@ -78,32 +78,39 @@
         .nav-content {
             max-width: 1200px; width: 100%;
             margin: 0 auto; padding: 0 20px;
-            display: grid;
-            grid-template-columns: 1fr auto 1fr;
+            display: flex;
+            justify-content: space-between;
             align-items: center;
         }
-        .nav-logo-group {
-            grid-column: 2 / 3;
-            display: flex; align-items: center; justify-content: center;
-            text-decoration: none;
-        }
         
-        .nav-logo-svg {
-            height: 30px; 
-            width: auto;
-            fill: var(--text-light);
+        .nav-logo-link {
+            display: flex;
+            align-items: center;
+            height: var(--nav-height); 
+        }
+        .nav-logo-img {
+  height: 225px;
+    width: auto;
+    margin-top: 61px;
+    margin-left: -213px;
         }
 
         .nav-links {
             display: flex; align-items: center; gap: 30px;
         }
-        .nav-links.nav-links-left { justify-content: flex-start; }
-        .nav-links.nav-links-right { justify-content: flex-end; }
+        
+        /* ===== UPDATED NAVIGATION LINK STYLES ===== */
         .nav-links a {
-            color: var(--text-muted); text-decoration: none; font-size: 0.95rem;
+            color: var(--text-light); /* Changed to white by default */
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 600; /* Bolder by default */
             transition: color 0.3s ease;
         }
-        .nav-links a:hover { color: var(--text-light); }
+        .nav-links a:hover {
+            color: var(--accent-blue); /* Consistent hover color */
+        }
+
         .enquiry-btn {
             background: var(--accent-blue); color: var(--text-light); border: none;
             padding: 8px 16px; border-radius: 999px; cursor: pointer;
@@ -144,18 +151,104 @@
         .grid-item-image { width: 100%; height: 100%; background-size: cover; background-position: center; transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
         .grid-item:hover .grid-item-image { transform: scale(1.1); }
         .grid-item-overlay { position: absolute; bottom: 0; left: 0; right: 0; padding: 20px; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); }
-        .grid-item-title { font-size: 1.4rem; font-weight: 600; transform: translateY(20px); opacity: 0; transition: transform 0.4s ease, opacity 0.4s ease; }
-        .grid-item:hover .grid-item-title { transform: translateY(0); opacity: 1; }
+        .grid-item-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
 
         .parallax-break { height: 60vh; background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('images/parallax-background.jpg'); background-position: center; background-repeat: no-repeat; background-size: cover; background-attachment: fixed; display: flex; align-items: center; justify-content: center; text-align: center; }
         .parallax-break h2 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; max-width: 600px; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
         
+        #services {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url('images/services-background.png');
+            background-position: center;
+            background-size: cover;
+            background-attachment: fixed;
+        }
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 50px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .service-item h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--accent-blue);
+            margin-bottom: 15px;
+        }
+        .service-item ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .service-item li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 8px;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+        .service-item li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            top: -2px;
+            color: var(--accent-blue);
+            font-size: 1.2rem;
+        }
+
         #filmstrip { overflow: hidden; padding-top: 0; }
         .filmstrip-container { display: flex; gap: 30px; overflow-x: auto; padding: 20px; -ms-overflow-style: none; scrollbar-width: none; scroll-snap-type: x mandatory; scroll-padding: 20px; }
         .filmstrip-container::-webkit-scrollbar { display: none; }
         .filmstrip-item { flex: 0 0 70vw; max-width: 600px; height: 75vh; background-size: cover; background-position: center; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); transition: transform 0.4s ease; scroll-snap-align: center; }
         .filmstrip-item:hover { transform: scale(0.98); }
         .filmstrip-instructions { text-align: center; color: var(--text-muted); margin-top: 40px; font-size: 1rem; }
+
+        .connect-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .connect-item {
+            background-color: var(--bg-light);
+            padding: 30px 35px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            text-align: center;
+        }
+        .connect-item h4 {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            font-size: 1.2rem;
+            color: var(--accent-blue);
+            margin-bottom: 15px;
+        }
+        .connect-item-icon {
+            width: 24px;
+            height: 24px;
+            stroke: var(--accent-blue);
+            stroke-width: 2;
+            fill: none;
+        }
+        .connect-item p {
+            color: var(--text-muted);
+            line-height: 1.8;
+            font-size: 1rem;
+        }
+        .connect-item a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .connect-item a:hover {
+            color: var(--accent-blue);
+        }
 
         .about-container { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; max-width: 1100px; margin: 0 auto; }
         .about-image { width: 100%; height: 500px; object-fit: cover; border-radius: 20px; }
@@ -194,34 +287,39 @@
         }
 
         @media (max-width: 768px) {
-            .nav-content { display: flex; justify-content: center; }
-            .nav-links { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(10, 10, 10, 0.9); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); flex-direction: column; align-items: center; justify-content: center; gap: 40px; opacity: 0; visibility: hidden; transform: translateY(-100%); transition: transform 0.4s ease, opacity 0.4s ease, visibility 0.4s ease; }
+            .nav-content { 
+                display: flex;
+                justify-content: flex-start;
+            }
+            .nav-links { 
+                position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+                background: rgba(10, 10, 10, 0.9); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); 
+                flex-direction: column; align-items: center; justify-content: center; gap: 40px; 
+                opacity: 0; visibility: hidden; transform: translateY(-100%); 
+                transition: transform 0.4s ease, opacity 0.4s ease, visibility 0.4s ease; 
+            }
             .nav-links.is-open { opacity: 1; visibility: visible; transform: translateY(0); }
             .nav-links a, .enquiry-btn { font-size: 1.5rem; }
             .nav-toggle-btn { display: block; }
-            .nav-logo-svg { height: 26px; }
+            .nav-logo-img { height: 50px; }
             .about-container { grid-template-columns: 1fr; }
             .about-image { grid-row: 1; }
             .expertise-grid { grid-template-columns: 1fr; }
+            .services-grid { grid-template-columns: 1fr; } 
         }
     </style>
 </head>
 <body>
     <header class="main-nav">
         <div class="nav-content">
-            <nav class="nav-links nav-links-left">
+            <a href="#hero" class="nav-logo-link">
+                <img src="images/Logo Transparent.png" alt="Curated Studio Logo" class="nav-logo-img">
+            </a>
+            <nav class="nav-links">
+                <a href="#services">Services</a>
                 <a href="#portfolio">Projects</a>
                 <a href="#filmstrip">Gallery</a>
-            </nav>
-            <a href="#hero" class="nav-logo-group">
-                <!-- SVG Logo -->
-                <svg class="nav-logo-svg" viewBox="0 0 220 30" xmlns="http://www.w3.org/2000/svg">
-                    <text x="0" y="22" font-family="'Playfair Display', serif" font-size="24" font-style="italic" font-weight="500" letter-spacing="0.5">
-                        Curated Studio
-                    </text>
-                </svg>
-            </a>
-            <nav class="nav-links nav-links-right">
+                <a href="#connect">Connect</a>
                 <a href="#about">About</a>
                 <button class="enquiry-btn modal-trigger">Enquiry</button>
             </nav>
@@ -239,34 +337,118 @@
             <a href="#enquiry-modal" class="hero-cta-btn modal-trigger">Start a New Project</a>
         </section>
 
+        <section class="content-section" id="services">
+            <h2 class="section-title">SERVICES WE OFFER</h2>
+            <div class="services-grid">
+                <div class="service-item">
+                    <h4>Architectural Design</h4>
+                    <ul>
+                        <li>Residential Design</li>
+                        <li>Commercial Design</li>
+                        <li>Institutional Design</li>
+                    </ul>
+                </div>
+                <div class="service-item">
+                    <h4>Interior Design</h4>
+                    <ul>
+                        <li>Residential Interiors</li>
+                        <li>Commercial Interiors</li>
+                        <li>Furniture Selection</li>
+                    </ul>
+                </div>
+                <div class="service-item">
+                    <h4>Planning and Consulting</h4>
+                    <ul>
+                        <li>Site Analysis</li>
+                        <li>Sustainable Design</li>
+                        <li>Regulatory Compliance</li>
+                    </ul>
+                </div>
+                <div class="service-item">
+                    <h4>Project Management</h4>
+                    <ul>
+                        <li>Construction Oversight</li>
+                        <li>Budgeting and Cost Control</li>
+                        <li>Timely Delivery</li>
+                    </ul>
+                </div>
+                <div class="service-item">
+                    <h4>Renovation and Restoration</h4>
+                    <ul>
+                        <li>Historic Restoration</li>
+                        <li>Renovation Solutions</li>
+                    </ul>
+                </div>
+                <div class="service-item">
+                    <h4>Visualization Services</h4>
+                    <ul>
+                        <li>3D Rendering</li>
+                        <li>Virtual Tours</li>
+                    </ul>
+                </div>
+                <div class="service-item">
+                    <h4>Custom Design Solutions</h4>
+                    <ul>
+                        <li>Bespoke Designs</li>
+                        <li>Collaborative Approach</li>
+                    </ul>
+                </div>
+                <div class="service-item">
+                    <h4>Post-Occupancy Evaluation</h4>
+                    <ul>
+                        <li>Feedback and Adaptation</li>
+                        <li>Long-term Relationship</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
         <section class="content-section" id="portfolio">
             <h2 class="section-title">Explore Our Signature Projects</h2>
             <div class="portfolio-grid">
                 <div class="grid-item">
                     <div class="grid-item-image" style="background-image: url('projects/1.png');"></div>
                     <div class="grid-item-overlay">
-                        <h3 class="grid-item-title">The Minimalist Loft</h3>
+                        <h3 class="grid-item-title">My Home Bhooja</h3>
                     </div>
                 </div>
-                
                 <div class="grid-item">
                     <div class="grid-item-image" style="background-image: url('projects/2.png');"></div>
                     <div class="grid-item-overlay">
-                        <h3 class="grid-item-title">Coastal Serenity Villa</h3>
+                        <h3 class="grid-item-title">PRANEETH Groups</h3>
                     </div>
                 </div>
-
                 <div class="grid-item">
                     <div class="grid-item-image" style="background-image: url('projects/3.png');"></div>
                     <div class="grid-item-overlay">
-                        <h3 class="grid-item-title">Urban Penthouse</h3>
+                        <h3 class="grid-item-title">RISINIA Groups</h3>
+                    </div>
+                </div>
+                <div class="grid-item">
+                    <div class="grid-item-image" style="background-image: url('projects/4.png');"></div>
+                    <div class="grid-item-overlay">
+                        <h3 class="grid-item-title">APARNA</h3>
+                    </div>
+                </div>
+                <div class="grid-item">
+                    <div class="grid-item-image" style="background-image: url('projects/5.png');"></div>
+                    <div class="grid-item-overlay">
+                        <h3 class="grid-item-title">APILA</h3>
+                    </div>
+                </div>
+                <div class="grid-item">
+                    <div class="grid-item-image" style="background-image: url('projects/6.jpg');"></div>
+                    <div class="grid-item-overlay">
+                        <h3 class="grid-item-title">MY FAIR Apartments</h3>
+                    </div>
+                </div>
+                <div class="grid-item">
+                    <div class="grid-item-image" style="background-image: url('projects/7.jpg');"></div>
+                    <div class="grid-item-overlay">
+                        <h3 class="grid-item-title">VERTEX</h3>
                     </div>
                 </div>
             </div>
-        </section>
-        
-        <section class="parallax-break">
-            <h2>Design is intelligence made visible.</h2>
         </section>
 
         <section class="content-section" id="filmstrip">
@@ -294,6 +476,52 @@
                 <div class="filmstrip-item" style="background-image: url('images/20.jpeg')"></div>
             </div>
             <p class="filmstrip-instructions">Scroll horizontally to explore</p>
+        </section>
+
+        <section class="parallax-break">
+            <h2>Design is intelligence made visible.</h2>
+        </section>
+
+        <section class="content-section" id="connect">
+            <h2 class="section-title">CONNECT WITH US</h2>
+            <div class="connect-grid">
+                <div class="connect-item">
+                    <h4>
+                        <svg class="connect-item-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                        Our Locations
+                    </h4>
+                    <p><strong>Location 1:</strong> 5th Floor, Gsm Mall, Miyapur Main Rd, Hyderabad-500050.</p>
+                    <p><strong>Location 2:</strong> Near suprabatha villas, kollur, Hyderabad-502300.</p>
+                </div>
+                <div class="connect-item">
+                    <h4>
+                        <svg class="connect-item-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                        Availability
+                    </h4>
+                    <p>Monday to Sunday (10AM to 6PM)</p>
+                </div>
+                <div class="connect-item">
+                    <h4>
+                        <svg class="connect-item-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                        Contact
+                    </h4>
+                    <p><a href="tel:+919493624477">+91-94936 24477</a></p>
+                </div>
+                <div class="connect-item">
+                    <h4>
+                        <svg class="connect-item-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                        Mail
+                    </h4>
+                    <p><a href="mailto:Curatedstudiohyd@gmail.com">Curatedstudiohyd@gmail.com</a></p>
+                </div>
+                <div class="connect-item">
+                    <h4>
+                        <svg class="connect-item-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.72"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.72-1.72"></path></svg>
+                        Web Site
+                    </h4>
+                    <p><a href="http://www.Curatedstudio.in" target="_blank" rel="noopener noreferrer">www.Curatedstudio.in</a></p>
+                </div>
+            </div>
         </section>
 
         <section class="content-section" id="about">
@@ -348,13 +576,13 @@
                     </div>
                 </div>
             </div>
-            
-            <div class="final-cta-section">
-                <h2 class="section-title" style="font-size: clamp(1.8rem, 4vw, 2.8rem); margin-bottom: 20px;">Let’s Make Your Dream Space a Reality</h2>
-                <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto 30px auto; line-height: 1.7;">Your vision is our inspiration. Whether you have a clear idea or just need a little guidance, we’re here to help you every step of the way.</p>
-                <a href="#enquiry-modal" class="hero-cta-btn modal-trigger">Bring Your Vision to Life</a>
-            </div>
         </section>
+        
+        <div class="final-cta-section">
+            <h2 class="section-title" style="font-size: clamp(1.8rem, 4vw, 2.8rem); margin-bottom: 20px;">Let’s Make Your Dream Space a Reality</h2>
+            <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto 30px auto; line-height: 1.7;">Your vision is our inspiration. Whether you have a clear idea or just need a little guidance, we’re here to help you every step of the way.</p>
+            <a href="#enquiry-modal" class="hero-cta-btn modal-trigger">Bring Your Vision to Life</a>
+        </div>
     </main>
 
     <div id="enquiry-modal" class="modal-overlay">
@@ -373,12 +601,8 @@
         </div>
     </div>
 
-    <!-- SCRIPT SECTION -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // All the fetching logic has been removed.
-            // The remaining scripts handle the navigation, modal, and animations.
-            
             const nav = document.querySelector('.main-nav');
             window.addEventListener('scroll', () => {
                 nav.classList.toggle('scrolled', window.scrollY > 50);
