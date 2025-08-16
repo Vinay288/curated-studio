@@ -38,6 +38,25 @@
             font-weight: 800; text-align: center;
             max-width: 700px; margin: 0 auto 80px auto; line-height: 1.2;
         }
+        
+        /* Page container styles */
+        .page {
+            display: none; /* Hide all pages by default */
+        }
+        .page.active {
+            display: block; /* Show only the active page */
+        }
+        
+        /* Animation for sections fading in on scroll */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -89,24 +108,27 @@
             height: var(--nav-height); 
         }
         .nav-logo-img {
-  height: 160px;
-    width: auto;
+            height: 180px;
+            width: auto;
+            margin-top: 412px;
+            margin-left: -84px;
         }
 
         .nav-links {
             display: flex; align-items: center; gap: 30px;
         }
         
-        /* ===== UPDATED NAVIGATION LINK STYLES ===== */
         .nav-links a {
-            color: var(--text-light); /* Changed to white by default */
+            color: var(--text-light);
             text-decoration: none;
             font-size: 0.95rem;
-            font-weight: 600; /* Bolder by default */
+            font-weight: 600;
             transition: color 0.3s ease;
+            cursor: pointer;
         }
-        .nav-links a:hover {
-            color: var(--accent-blue); /* Consistent hover color */
+        .nav-links a:hover,
+        .nav-links a.active-nav { /* Style for active link */
+            color: var(--accent-blue);
         }
 
         .enquiry-btn {
@@ -157,7 +179,7 @@
         .parallax-break { height: 60vh; background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('images/parallax-background.jpg'); background-position: center; background-repeat: no-repeat; background-size: cover; background-attachment: fixed; display: flex; align-items: center; justify-content: center; text-align: center; }
         .parallax-break h2 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; max-width: 600px; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
         
-        #services {
+        #services-summary {
             background-image: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url('images/services-background.png');
             background-position: center;
             background-size: cover;
@@ -197,7 +219,7 @@
             font-size: 1.2rem;
         }
 
-        #filmstrip { overflow: hidden; padding-top: 0; }
+        #filmstrip-summary { overflow: hidden; padding-top: 0; }
         .filmstrip-container { display: flex; gap: 30px; overflow-x: auto; padding: 20px; -ms-overflow-style: none; scrollbar-width: none; scroll-snap-type: x mandatory; scroll-padding: 20px; }
         .filmstrip-container::-webkit-scrollbar { display: none; }
         .filmstrip-item { flex: 0 0 70vw; max-width: 600px; height: 75vh; background-size: cover; background-position: center; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); transition: transform 0.4s ease; scroll-snap-align: center; }
@@ -284,6 +306,83 @@
             margin-right: auto;
         }
 
+        /* Back to Top Button Styles */
+        #back-to-top-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--accent-blue);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: opacity 0.4s, visibility 0.4s, transform 0.4s;
+            box-shadow: 0 5px 15px rgba(0, 122, 255, 0.4);
+        }
+        #back-to-top-btn.is-visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        #back-to-top-btn:hover {
+            background-color: #0062cc;
+        }
+
+        /* Detailed Services Page Styles */
+        .services-page-header {
+            padding: 100px 20px 60px;
+            text-align: center;
+        }
+        .services-page-header p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+        .services-page-header h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 800;
+        }
+        .service-detail-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 60px;
+            max-width: 1100px;
+            margin: 0 auto 80px auto; /* Added bottom margin */
+            align-items: center;
+        }
+        .service-detail-grid.reverse {
+             grid-template-columns: 2fr 1fr;
+        }
+        .service-detail-grid img {
+            width: 100%;
+            border-radius: 20px;
+        }
+        .service-detail-content h3 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+        .service-detail-content h4 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--accent-blue);
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        .service-detail-content p {
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
         @media (max-width: 768px) {
             .nav-content { 
                 display: flex;
@@ -299,26 +398,34 @@
             .nav-links.is-open { opacity: 1; visibility: visible; transform: translateY(0); }
             .nav-links a, .enquiry-btn { font-size: 1.5rem; }
             .nav-toggle-btn { display: block; }
-            .nav-logo-img { height: 120px; }
+            .nav-logo-img { height: 140px; }
             .about-container { grid-template-columns: 1fr; }
             .about-image { grid-row: 1; }
             .expertise-grid { grid-template-columns: 1fr; }
             .services-grid { grid-template-columns: 1fr; } 
+            .service-detail-grid,
+            .service-detail-grid.reverse { 
+                grid-template-columns: 1fr; 
+            }
+            .service-detail-grid.reverse .service-detail-content {
+                grid-row: 1; /* Ensure text comes before image on mobile */
+            }
         }
     </style>
 </head>
 <body>
     <header class="main-nav">
         <div class="nav-content">
-            <a href="#hero" class="nav-logo-link">
+            <a href="#" data-page="home" class="nav-logo-link">
                 <img src="images/Logo Transparent.png" alt="Curated Studio Logo" class="nav-logo-img">
             </a>
             <nav class="nav-links">
-                <a href="#services">Services</a>
-                <a href="#portfolio">Projects</a>
-                <a href="#filmstrip">Gallery</a>
-                <a href="#connect">Connect</a>
-                <a href="#about">About</a>
+                <a href="#" data-page="home">Home</a>
+                <a href="#" data-page="services-page">Services</a>
+                <a href="#portfolio-summary">Projects</a>
+                <a href="#filmstrip-summary">Gallery</a>
+                <a href="#connect-summary">Connect</a>
+                <a href="#about-summary">About</a>
                 <button class="enquiry-btn modal-trigger">Enquiry</button>
             </nav>
         </div>
@@ -330,256 +437,379 @@
     </header>
 
     <main>
-        <section id="hero">
-            <h1 class="hero-title">Where Art Meets Architecture.</h1>
-            <a href="#enquiry-modal" class="hero-cta-btn modal-trigger">Start a New Project</a>
-        </section>
+        <!-- ===== HOME PAGE (Scrollable) ===== -->
+        <div id="home" class="page active">
+            <section id="hero" class="content-section">
+                <h1 class="hero-title">Where Art Meets Architecture.</h1>
+                <a href="#enquiry-modal" class="hero-cta-btn modal-trigger">Start a New Project</a>
+            </section>
 
-        <section class="content-section" id="services">
-            <h2 class="section-title">SERVICES WE OFFER</h2>
-            <div class="services-grid">
-                <div class="service-item">
-                    <h4>Architectural Design</h4>
-                    <ul>
-                        <li>Residential Design</li>
-                        <li>Commercial Design</li>
-                        <li>Institutional Design</li>
-                    </ul>
+            <section id="services-summary" class="content-section fade-in">
+                <h2 class="section-title">SERVICES WE OFFER</h2>
+                <div class="services-grid">
+                    <div class="service-item">
+                        <h4>Architectural Design</h4>
+                        <ul>
+                            <li>Residential Design</li>
+                            <li>Commercial Design</li>
+                            <li>Institutional Design</li>
+                        </ul>
+                    </div>
+                    <div class="service-item">
+                        <h4>Interior Design</h4>
+                        <ul>
+                            <li>Residential Interiors</li>
+                            <li>Commercial Interiors</li>
+                            <li>Furniture Selection</li>
+                        </ul>
+                    </div>
+                    <div class="service-item">
+                        <h4>Planning and Consulting</h4>
+                        <ul>
+                            <li>Site Analysis</li>
+                            <li>Sustainable Design</li>
+                            <li>Regulatory Compliance</li>
+                        </ul>
+                    </div>
+                    <div class="service-item">
+                        <h4>Project Management</h4>
+                        <ul>
+                            <li>Construction Oversight</li>
+                            <li>Budgeting and Cost Control</li>
+                            <li>Timely Delivery</li>
+                        </ul>
+                    </div>
+                    <div class="service-item">
+                        <h4>Renovation and Restoration</h4>
+                        <ul>
+                            <li>Historic Restoration</li>
+                            <li>Renovation Solutions</li>
+                        </ul>
+                    </div>
+                    <div class="service-item">
+                        <h4>Visualization Services</h4>
+                        <ul>
+                            <li>3D Rendering</li>
+                            <li>Virtual Tours</li>
+                        </ul>
+                    </div>
+                    <div class="service-item">
+                        <h4>Custom Design Solutions</h4>
+                        <ul>
+                            <li>Bespoke Designs</li>
+                            <li>Collaborative Approach</li>
+                        </ul>
+                    </div>
+                    <div class="service-item">
+                        <h4>Post-Occupancy Evaluation</h4>
+                        <ul>
+                            <li>Feedback and Adaptation</li>
+                            <li>Long-term Relationship</li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="service-item">
-                    <h4>Interior Design</h4>
-                    <ul>
-                        <li>Residential Interiors</li>
-                        <li>Commercial Interiors</li>
-                        <li>Furniture Selection</li>
-                    </ul>
-                </div>
-                <div class="service-item">
-                    <h4>Planning and Consulting</h4>
-                    <ul>
-                        <li>Site Analysis</li>
-                        <li>Sustainable Design</li>
-                        <li>Regulatory Compliance</li>
-                    </ul>
-                </div>
-                <div class="service-item">
-                    <h4>Project Management</h4>
-                    <ul>
-                        <li>Construction Oversight</li>
-                        <li>Budgeting and Cost Control</li>
-                        <li>Timely Delivery</li>
-                    </ul>
-                </div>
-                <div class="service-item">
-                    <h4>Renovation and Restoration</h4>
-                    <ul>
-                        <li>Historic Restoration</li>
-                        <li>Renovation Solutions</li>
-                    </ul>
-                </div>
-                <div class="service-item">
-                    <h4>Visualization Services</h4>
-                    <ul>
-                        <li>3D Rendering</li>
-                        <li>Virtual Tours</li>
-                    </ul>
-                </div>
-                <div class="service-item">
-                    <h4>Custom Design Solutions</h4>
-                    <ul>
-                        <li>Bespoke Designs</li>
-                        <li>Collaborative Approach</li>
-                    </ul>
-                </div>
-                <div class="service-item">
-                    <h4>Post-Occupancy Evaluation</h4>
-                    <ul>
-                        <li>Feedback and Adaptation</li>
-                        <li>Long-term Relationship</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
+            </section>
 
-        <section class="content-section" id="portfolio">
-            <h2 class="section-title">Explore Our Signature Projects</h2>
-            <div class="portfolio-grid">
-                <div class="grid-item">
-                    <div class="grid-item-image" style="background-image: url('projects/1.png');"></div>
-                    <div class="grid-item-overlay">
-                        <h3 class="grid-item-title">My Home Bhooja</h3>
+            <section id="portfolio-summary" class="content-section fade-in">
+                <h2 class="section-title">Explore Our Signature Projects</h2>
+                <div class="portfolio-grid">
+                    <div class="grid-item">
+                        <div class="grid-item-image" style="background-image: url('projects/1.png');"></div>
+                        <div class="grid-item-overlay">
+                            <h3 class="grid-item-title">My Home Bhooja</h3>
+                        </div>
+                    </div>
+                    <div class="grid-item">
+                        <div class="grid-item-image" style="background-image: url('projects/2.png');"></div>
+                        <div class="grid-item-overlay">
+                            <h3 class="grid-item-title">Jain Villas</h3>
+                        </div>
+                    </div>
+                    <div class="grid-item">
+                        <div class="grid-item-image" style="background-image: url('projects/3.png');"></div>
+                        <div class="grid-item-overlay">
+                            <h3 class="grid-item-title">RISINIA Groups</h3>
+                        </div>
+                    </div>
+                    <div class="grid-item">
+                        <div class="grid-item-image" style="background-image: url('projects/4.png');"></div>
+                        <div class="grid-item-overlay">
+                            <h3 class="grid-item-title">APARNA</h3>
+                        </div>
+                    </div>
+                    <div class="grid-item">
+                        <div class="grid-item-image" style="background-image: url('projects/5.png');"></div>
+                        <div class="grid-item-overlay">
+                            <h3 class="grid-item-title">APILA</h3>
+                        </div>
+                    </div>
+                    <div class="grid-item">
+                        <div class="grid-item-image" style="background-image: url('projects/6.jpg');"></div>
+                        <div class="grid-item-overlay">
+                            <h3 class="grid-item-title">MY FAIR Apartments</h3>
+                        </div>
+                    </div>
+                    <div class="grid-item">
+                        <div class="grid-item-image" style="background-image: url('projects/7.jpg');"></div>
+                        <div class="grid-item-overlay">
+                            <h3 class="grid-item-title">VERTEX</h3>
+                        </div>
                     </div>
                 </div>
-                <div class="grid-item">
-                    <div class="grid-item-image" style="background-image: url('projects/2.png');"></div>
-                    <div class="grid-item-overlay">
-                        <h3 class="grid-item-title">PRANEETH Groups</h3>
-                    </div>
-                </div>
-                <div class="grid-item">
-                    <div class="grid-item-image" style="background-image: url('projects/3.png');"></div>
-                    <div class="grid-item-overlay">
-                        <h3 class="grid-item-title">RISINIA Groups</h3>
-                    </div>
-                </div>
-                <div class="grid-item">
-                    <div class="grid-item-image" style="background-image: url('projects/4.png');"></div>
-                    <div class="grid-item-overlay">
-                        <h3 class="grid-item-title">APARNA</h3>
-                    </div>
-                </div>
-                <div class="grid-item">
-                    <div class="grid-item-image" style="background-image: url('projects/5.png');"></div>
-                    <div class="grid-item-overlay">
-                        <h3 class="grid-item-title">APILA</h3>
-                    </div>
-                </div>
-                <div class="grid-item">
-                    <div class="grid-item-image" style="background-image: url('projects/6.jpg');"></div>
-                    <div class="grid-item-overlay">
-                        <h3 class="grid-item-title">MY FAIR Apartments</h3>
-                    </div>
-                </div>
-                <div class="grid-item">
-                    <div class="grid-item-image" style="background-image: url('projects/7.jpg');"></div>
-                    <div class="grid-item-overlay">
-                        <h3 class="grid-item-title">VERTEX</h3>
-                    </div>
-                </div>
-            </div>
-        </section>
+            </section>
+            
+            <section class="parallax-break fade-in">
+                <h2>Design is intelligence made visible.</h2>
+            </section>
 
-        <section class="content-section" id="filmstrip">
-            <h2 class="section-title">A Gallery of Details</h2>
-            <div class="filmstrip-container">
-                <div class="filmstrip-item" style="background-image: url('images/1.png')"></div>
-                <div class="filmstrip-item" style="background-image: url('images/2.png')"></div>
-                <div class="filmstrip-item" style="background-image: url('images/3.png')"></div>
-                <div class="filmstrip-item" style="background-image: url('images/4.png')"></div>
-                <div class="filmstrip-item" style="background-image: url('images/5.png')"></div>
-                <div class="filmstrip-item" style="background-image: url('images/6.jpg')"></div>
-                <div class="filmstrip-item" style="background-image: url('images/7.jpg')"></div>
-                <div class="filmstrip-item" style="background-image: url('images/8.jpg')"></div>
-                <div class="filmstrip-item" style="background-image: url('images/9.jpg')"></div>
-                <div class="filmstrip-item" style="background-image: url('images/10.jpg')"></div>
-                <div class="filmstrip-item" style="background-image: url('images/11.jpg')"></div>
-                <div class="filmstrip-item" style="background-image: url('images/12.png')"></div>
-                <div class="filmstrip-item" style="background-image: url('images/13.png')"></div>
-                <div class="filmstrip-item" style="background-image: url('images/14.png')"></div>
-                <div class="filmstrip-item" style="background-image: url('images/15.png')"></div>
-                <div class="filmstrip-item" style="background-image: url('images/16.png')"></div>
-                <div class="filmstrip-item" style="background-image: url('images/17.png')"></div>
-                <div class="filmstrip-item" style="background-image: url('images/18.jpeg')"></div>
-                <div class="filmstrip-item" style="background-image: url('images/19.jpeg')"></div>
-                <div class="filmstrip-item" style="background-image: url('images/20.jpeg')"></div>
-            </div>
-            <p class="filmstrip-instructions">Scroll horizontally to explore</p>
-        </section>
+            <section id="filmstrip-summary" class="content-section fade-in">
+                <h2 class="section-title">A Gallery of Details</h2>
+                <div class="filmstrip-container">
+                   <div class="filmstrip-item" style="background-image: url('images/1.png')"></div>
+                    <div class="filmstrip-item" style="background-image: url('images/2.png')"></div>
+                    <div class="filmstrip-item" style="background-image: url('images/3.png')"></div>
+                    <div class="filmstrip-item" style="background-image: url('images/4.png')"></div>
+                    <div class="filmstrip-item" style="background-image: url('images/5.png')"></div>
+                    <div class="filmstrip-item" style="background-image: url('images/6.jpg')"></div>
+                    <div class="filmstrip-item" style="background-image: url('images/7.jpg')"></div>
+                    <div class="filmstrip-item" style="background-image: url('images/8.jpg')"></div>
+                    <div class="filmstrip-item" style="background-image: url('images/9.jpg')"></div>
+                    <div class="filmstrip-item" style="background-image: url('images/10.jpg')"></div>
+                    <div class="filmstrip-item" style="background-image: url('images/11.jpg')"></div>
+                    <div class="filmstrip-item" style="background-image: url('images/12.png')"></div>
+                    <div class="filmstrip-item" style="background-image: url('images/13.png')"></div>
+                    <div class="filmstrip-item" style="background-image: url('images/14.png')"></div>
+                    <div class="filmstrip-item" style="background-image: url('images/15.png')"></div>
+                    <div class="filmstrip-item" style="background-image: url('images/16.png')"></div>
+                    <div class="filmstrip-item" style="background-image: url('images/17.png')"></div>
+                    <div class="filmstrip-item" style="background-image: url('images/18.jpeg')"></div>
+                    <div class="filmstrip-item" style="background-image: url('images/19.jpeg')"></div>
+                    <div class="filmstrip-item" style="background-image: url('images/20.jpeg')"></div>
+                </div>
+                <p class="filmstrip-instructions">Scroll horizontally to explore</p>
+            </section>
 
-        <section class="parallax-break">
-            <h2>Design is intelligence made visible.</h2>
-        </section>
+            <section id="connect-summary" class="content-section fade-in">
+                <h2 class="section-title">CONNECT WITH US</h2>
+                <div class="connect-grid">
+                    <div class="connect-item">
+                        <h4>
+                            <svg class="connect-item-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                            Our Locations
+                        </h4>
+                        <p><strong>Location 1:</strong> 5th Floor, Gsm Mall, Miyapur Main Rd, Hyderabad-500050.</p>
+                        <p><strong>Location 2:</strong> Near suprabatha villas, kollur, Hyderabad-502300.</p>
+                    </div>
+                    <div class="connect-item">
+                        <h4>
+                            <svg class="connect-item-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                            Availability
+                        </h4>
+                        <p>Monday to Sunday (10AM to 6PM)</p>
+                    </div>
+                    <div class="connect-item">
+                        <h4>
+                            <svg class="connect-item-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                            Contact
+                        </h4>
+                        <p><a href="tel:+919493624477">+91-94936 24477</a></p>
+                    </div>
+                    <div class="connect-item">
+                        <h4>
+                            <svg class="connect-item-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                            Mail
+                        </h4>
+                        <p><a href="mailto:Curatedstudiohyd@gmail.com">Curatedstudiohyd@gmail.com</a></p>
+                    </div>
+                    <div class="connect-item">
+                        <h4>
+                            <svg class="connect-item-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.72"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.72-1.72"></path></svg>
+                            Web Site
+                        </h4>
+                        <p><a href="http://www.Curatedstudio.in" target="_blank" rel="noopener noreferrer">www.Curatedstudio.in</a></p>
+                    </div>
+                </div>
+            </section>
 
-        <section class="content-section" id="connect">
-            <h2 class="section-title">CONNECT WITH US</h2>
-            <div class="connect-grid">
-                <div class="connect-item">
-                    <h4>
-                        <svg class="connect-item-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                        Our Locations
-                    </h4>
-                    <p><strong>Location 1:</strong> 5th Floor, Gsm Mall, Miyapur Main Rd, Hyderabad-500050.</p>
-                    <p><strong>Location 2:</strong> Near suprabatha villas, kollur, Hyderabad-502300.</p>
-                </div>
-                <div class="connect-item">
-                    <h4>
-                        <svg class="connect-item-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                        Availability
-                    </h4>
-                    <p>Monday to Sunday (10AM to 6PM)</p>
-                </div>
-                <div class="connect-item">
-                    <h4>
-                        <svg class="connect-item-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-                        Contact
-                    </h4>
-                    <p><a href="tel:+919493624477">+91-94936 24477</a></p>
-                </div>
-                <div class="connect-item">
-                    <h4>
-                        <svg class="connect-item-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-                        Mail
-                    </h4>
-                    <p><a href="mailto:Curatedstudiohyd@gmail.com">Curatedstudiohyd@gmail.com</a></p>
-                </div>
-                <div class="connect-item">
-                    <h4>
-                        <svg class="connect-item-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.72"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.72-1.72"></path></svg>
-                        Web Site
-                    </h4>
-                    <p><a href="http://www.Curatedstudio.in" target="_blank" rel="noopener noreferrer">www.Curatedstudio.in</a></p>
-                </div>
-            </div>
-        </section>
-
-        <section class="content-section" id="about">
-             <h2 class="section-title">About Curated Studio</h2>
-             <div class="about-container">
-                 <div class="about-content">
-                     <h3>Our Philosophy</h3>
-                     <p>Welcome to Curated Studio, where homes are crafted with heart. Based in Hyderabad, Curated Studio was born from a builder's journey-not just of bricks and blueprints, but of stories, smiles, and the joy of watching people step into their first homes... and their forever homes.</p>
-                     <p>With more than a decade of experience, we've seen the excitement in a client's eyes and understood what truly matters-comfort, warmth, and elegance. We don't just design spaces-we create environments that feel personal, lived-in, and effortlessly beautiful. Every detail is intentional, a blend of timeless design and modern sensibility.</p>
-                     <ul class="about-info">
-                         <li><strong>Location:</strong> 123 Design Lane, Metropolis, 10101</li>
-                         <li><strong>Specialty:</strong> High-end Residential & Boutique Commercial</li>
-                         <li><strong>Founded:</strong> 2018</li>
-                     </ul>
+            <section id="about-summary" class="content-section fade-in">
+                 <h2 class="section-title">About Curated Studio</h2>
+                 <div class="about-container">
+                     <div class="about-content">
+                         <h3>Our Philosophy</h3>
+                         <p>Welcome to Curated Studio, where homes are crafted with heart. Based in Hyderabad, Curated Studio was born from a builder's journey-not just of bricks and blueprints, but of stories, smiles, and the joy of watching people step into their first homes... and their forever homes.</p>
+                         <p>With more than a decade of experience, we've seen the excitement in a client's eyes and understood what truly matters-comfort, warmth, and elegance. We don't just design spaces-we create environments that feel personal, lived-in, and effortlessly beautiful. Every detail is intentional, a blend of timeless design and modern sensibility.</p>
+                         <ul class="about-info">
+                             <li><strong>Location:</strong> 123 Design Lane, Metropolis, 10101</li>
+                             <li><strong>Specialty:</strong> High-end Residential & Boutique Commercial</li>
+                             <li><strong>Founded:</strong> 2018</li>
+                         </ul>
+                     </div>
+                     <img src="images/about-us-image.jpg" alt="A beautifully designed interior space" class="about-image">
                  </div>
-                 <img src="images/about-us-image.jpg" alt="A beautifully designed interior space" class="about-image">
-             </div>
-
-            <div class="expertise-grid">
-                <div class="expertise-column">
-                    <h3>Why Choose Us?</h3>
-                    <div class="expertise-item">
-                        <h4>Tailored Designs</h4>
-                        <p>We don’t believe in one-size-fits-all. Our designs are customized to meet your individual needs and style.</p>
+                <div class="expertise-grid">
+                    <div class="expertise-column">
+                        <h3>Why Choose Us?</h3>
+                        <div class="expertise-item">
+                            <h4>Tailored Designs</h4>
+                            <p>We don’t believe in one-size-fits-all. Our designs are customized to meet your individual needs and style.</p>
+                        </div>
+                        <div class="expertise-item">
+                            <h4>Attention to Detail</h4>
+                            <p>Every aspect, from furniture to lighting, is thoughtfully curated for maximum impact.</p>
+                        </div>
+                        <div class="expertise-item">
+                            <h4>Collaborative Process</h4>
+                            <p>We value your input and work alongside you to ensure the final design exceeds your expectations.</p>
+                        </div>
+                         <div class="expertise-item">
+                            <h4>Sustainable Practices</h4>
+                            <p>We’re committed to using eco-friendly materials to create beautiful spaces that are also kind to the environment.</p>
+                        </div>
                     </div>
-                    <div class="expertise-item">
-                        <h4>Attention to Detail</h4>
-                        <p>Every aspect, from furniture to lighting, is thoughtfully curated for maximum impact.</p>
-                    </div>
-                    <div class="expertise-item">
-                        <h4>Collaborative Process</h4>
-                        <p>We value your input and work alongside you to ensure the final design exceeds your expectations.</p>
-                    </div>
-                     <div class="expertise-item">
-                        <h4>Sustainable Practices</h4>
-                        <p>We’re committed to using eco-friendly materials to create beautiful spaces that are also kind to the environment.</p>
-                    </div>
-                </div>
-                <div class="expertise-column">
-                    <h3>Our Expertise</h3>
-                     <div class="expertise-item">
-                        <h4>Residential Design</h4>
-                        <p>Whether it's a cozy living room or a luxurious master suite, we craft homes that are both functional and beautiful.</p>
-                    </div>
-                    <div class="expertise-item">
-                        <h4>Commercial Design</h4>
-                        <p>From offices to restaurants and retail, we create environments that foster creativity and engagement.</p>
-                    </div>
-                    <div class="expertise-item">
-                        <h4>Renovations & Remodels</h4>
-                        <p>Ready to breathe new life into your space? Our team handles everything from minor tweaks to major renovations.</p>
+                    <div class="expertise-column">
+                        <h3>Our Expertise</h3>
+                         <div class="expertise-item">
+                            <h4>Residential Design</h4>
+                            <p>Whether it's a cozy living room or a luxurious master suite, we craft homes that are both functional and beautiful.</p>
+                        </div>
+                        <div class="expertise-item">
+                            <h4>Commercial Design</h4>
+                            <p>From offices to restaurants and retail, we create environments that foster creativity and engagement.</p>
+                        </div>
+                        <div class="expertise-item">
+                            <h4>Renovations & Remodels</h4>
+                            <p>Ready to breathe new life into your space? Our team handles everything from minor tweaks to major renovations.</p>
+                        </div>
                     </div>
                 </div>
+            </section>
+            
+            <div class="final-cta-section fade-in">
+                <h2 class="section-title" style="font-size: clamp(1.8rem, 4vw, 2.8rem); margin-bottom: 20px;">Let’s Make Your Dream Space a Reality</h2>
+                <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto 30px auto; line-height: 1.7;">Your vision is our inspiration. Whether you have a clear idea or just need a little guidance, we’re here to help you every step of the way.</p>
+                <a href="#enquiry-modal" class="hero-cta-btn modal-trigger">Bring Your Vision to Life</a>
             </div>
-        </section>
-        
-        <div class="final-cta-section">
-            <h2 class="section-title" style="font-size: clamp(1.8rem, 4vw, 2.8rem); margin-bottom: 20px;">Let’s Make Your Dream Space a Reality</h2>
-            <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto 30px auto; line-height: 1.7;">Your vision is our inspiration. Whether you have a clear idea or just need a little guidance, we’re here to help you every step of the way.</p>
-            <a href="#enquiry-modal" class="hero-cta-btn modal-trigger">Bring Your Vision to Life</a>
+        </div>
+
+        <!-- ===== DETAILED SERVICES PAGE ===== -->
+        <div id="services-page" class="page">
+            <section class="content-section">
+                <div class="services-page-header">
+                    <p>We Are Experts In</p>
+                    <h1>Quality Services, Trusted Results.</h1>
+                </div>
+                <div class="service-detail-grid">
+                    <img src="services/1.jpg" alt="Modern architectural building">
+                    <div class="service-detail-content">
+                        <h3>ARCHITECTURAL DESIGN.</h3>
+                        <h4>Residential Design</h4>
+                        <p>Tailor-made solutions for homes that balance style, functionality, and personal preferences.</p>
+                        <h4>Commercial Design</h4>
+                        <p>Innovative designs for offices, retail spaces, and other commercial establishments, optimizing workflow and customer experience.</p>
+                        <h4>Institutional Design</h4>
+                        <p>Thoughtful and efficient designs for educational, healthcare, and public institutions.</p>
+                    </div>
+                </div>
+                <div class="service-detail-grid reverse">
+                    <div class="service-detail-content">
+                        <h3>INTERIOR DESIGN.</h3>
+                        <h4>Residential Interiors</h4>
+                        <p>Transform living spaces with a focus on aesthetics, comfort, and personalized style.</p>
+                        <h4>Commercial Interiors</h4>
+                        <p>Enhance the atmosphere of workplaces, stores, and restaurants through strategic interior design.</p>
+                        <h4>Furniture Selection</h4>
+                        <p>Provide expertise in selecting and placing furniture that complements the overall design.</p>
+                    </div>
+                    <img src="services/2.jpg" alt="Stylish and modern living room interior">
+                </div>
+                                <div class="service-detail-grid">
+                    <img src="services/3.jpg" alt="Modern architectural building">
+                    <div class="service-detail-content">
+                        <h3>PLANNING AND CONSULTING.</h3>
+                        <h4>Site Analysis</h4>
+                        <p>Conduct thorough site evaluations to understand
+environmental factors and optimize design.</p>
+                        <h4>Sustainable Design</h4>
+                        <p>Integrate eco-friendly practices into designs, focusing on
+energy efficiency and environmental impact.</p>
+                        <h4>Regulatory Compliance</h4>
+                        <p>Navigate and ensure compliance with local building
+codes and regulations.</p>
+                    </div>
+                </div>
+                <div class="service-detail-grid reverse">
+                    <div class="service-detail-content">
+                        <h3>PROJECT MANAGEMENT.</h3>
+                        <h4>Construction Oversight</h4>
+                        <p>Transform living spaces with a focus on aesthetics,
+comfort, and personalized style.</p>
+                        <h4>Budgeting and Cost Control</h4>
+                        <p>Enhance the atmosphere of workplaces, stores, and
+restaurants through strategic interior design.</p>
+                        <h4>Timely Delivery</h4>
+                        <p>Provide expertise in selecting and placing furniture that
+complements the overall design.</p>
+                    </div>
+                    <img src="services/4.jpg" alt="Stylish and modern living room interior">
+                </div>
+                
+                                                <div class="service-detail-grid">
+                    <img src="services/5.jpg" alt="Modern architectural building">
+                    <div class="service-detail-content">
+                        <h3>RENOVATION AND
+RESTORATION.</h3>
+                        <h4>Historic Restoration</h4>
+                        <p>Preserve and restore the architectural integrity of historic
+structures while incorporating modern amenities.</p>
+                        <h4>Renovation Solutions</h4>
+                        <p>Upgrade existing spaces with a keen eye for design,
+functionality, and cost-effectiveness.</p>
+                    </div>
+                </div>
+                
+                                <div class="service-detail-grid reverse">
+                    <div class="service-detail-content">
+                        <h3>VISUALIZATION SERVICES.</h3>
+                        <h4>3D Rendering</h4>
+                        <p>Provide realistic visualizations of design concepts,
+helping clients better understand the final outcome.</p>
+                        <h4>Virtual Tours</h4>
+                        <p>Allow clients to virtually explore and experience the
+designed spaces before construction begins.</p>
+                    </div>
+                    <img src="services/6.jpg" alt="Stylish and modern living room interior">
+                </div>
+                
+                                                                <div class="service-detail-grid">
+                    <img src="services/7.jpg" alt="Modern architectural building">
+                    <div class="service-detail-content">
+                        <h3>CUSTOM DESIGN SOLUTIONS.</h3>
+                        <h4>Bespoke Designs</h4>
+                        <p>Craft unique, tailor-made designs that reflect the client's
+personality, preferences, and lifestyle.
+</p>
+                        <h4>Collaborative Approach
+</h4>
+                        <p>Engage clients in the design process, ensuring their vision
+is incorporated into the final result.</p>
+                    </div>
+                </div>
+                
+                                                <div class="service-detail-grid reverse">
+                    <div class="service-detail-content">
+                        <h3>POST-OCCUPANCY
+EVALUATION.</h3>
+                        <h4>Feedback and Adaptation</h4>
+                        <p>Gather client feedback post-occupancy to assess the
+effectiveness of the design and make any necessary
+adjustments.</p>
+                        <h4>Long-Term Relationship</h4>
+                        <p>Offer ongoing support and services for maintenance and
+improvements as clients' needs evolve.</p>
+                    </div>
+                    <img src="services/8.jpg" alt="Stylish and modern living room interior">
+                </div>
+            </section>
         </div>
     </main>
 
@@ -599,31 +829,120 @@
         </div>
     </div>
 
+    <!-- Back to Top Button -->
+    <button id="back-to-top-btn" title="Go to top">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+    </button>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const nav = document.querySelector('.main-nav');
-            window.addEventListener('scroll', () => {
-                nav.classList.toggle('scrolled', window.scrollY > 50);
-            });
+            const backToTopBtn = document.getElementById('back-to-top-btn');
+            const sections = document.querySelectorAll('#home .content-section');
+            const navLinks = document.querySelectorAll('.nav-links a');
+            const pages = document.querySelectorAll('.page');
 
-            const navToggleBtn = document.querySelector('.nav-toggle-btn');
-            const navLinksContainers = document.querySelectorAll('.nav-links');
-            const allNavLinks = document.querySelectorAll('.nav-links a, .nav-links .enquiry-btn');
-            navToggleBtn.addEventListener('click', () => {
-                document.body.classList.toggle('nav-open');
-                navToggleBtn.classList.toggle('is-active');
-                navLinksContainers.forEach(container => container.classList.toggle('is-open'));
-            });
-            allNavLinks.forEach(link => {
-                link.addEventListener('click', () => {
+            // --- Page Switching Logic ---
+            function showPage(pageId) {
+                pages.forEach(page => {
+                    page.classList.remove('active');
+                });
+                const newPage = document.getElementById(pageId);
+                if (newPage) {
+                    newPage.classList.add('active');
+                    window.scrollTo(0, 0); // Scroll to top of new page
+                }
+            }
+
+            document.querySelectorAll('.nav-links a, .nav-logo-link').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    const pageId = link.dataset.page;
+                    const href = link.getAttribute('href');
+
+                    if (pageId) { // Handles page switches (Home, Services)
+                        e.preventDefault();
+                        showPage(pageId);
+                    } else if (href && href.startsWith('#')) { // Handles all other anchor links
+                        if (!document.getElementById('home').classList.contains('active')) {
+                            e.preventDefault();
+                            showPage('home');
+                            setTimeout(() => {
+                                const targetElement = document.querySelector(href);
+                                if (targetElement) {
+                                    targetElement.scrollIntoView({ behavior: 'smooth' });
+                                }
+                            }, 100);
+                        }
+                    }
+
                     if (document.body.classList.contains('nav-open')) {
                         document.body.classList.remove('nav-open');
-                        navToggleBtn.classList.remove('is-active');
-                        navLinksContainers.forEach(container => container.classList.remove('is-open'));
+                        document.querySelector('.nav-toggle-btn').classList.remove('is-active');
+                        document.querySelector('.nav-links').classList.remove('is-open');
                     }
                 });
             });
 
+            // --- Scroll-based functionality ---
+            window.addEventListener('scroll', () => {
+                // Scrolled Nav background
+                nav.classList.toggle('scrolled', window.scrollY > 50);
+
+                // Back to Top button visibility
+                if (window.scrollY > 500) {
+                    backToTopBtn.classList.add('is-visible');
+                } else {
+                    backToTopBtn.classList.remove('is-visible');
+                }
+
+                // Active Nav Link Highlighting
+                 if (document.getElementById('home').classList.contains('active')) {
+                    let current = 'hero'; // Default to hero
+                    sections.forEach(section => {
+                        const sectionTop = section.offsetTop;
+                        if (pageYOffset >= sectionTop - nav.offsetHeight - 1) {
+                            current = section.getAttribute('id');
+                        }
+                    });
+                    navLinks.forEach(link => {
+                        link.classList.remove('active-nav');
+                        const linkHref = link.getAttribute('href');
+                        if (linkHref === '#' + current.replace('-summary', '')) {
+                            link.classList.add('active-nav');
+                        }
+                    });
+                 }
+            });
+
+            // Back to Top button click
+            backToTopBtn.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+            
+            // --- Animations on Scroll ---
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.fade-in').forEach(el => {
+                observer.observe(el);
+            });
+
+            // --- Mobile Menu Logic ---
+            const navToggleBtn = document.querySelector('.nav-toggle-btn');
+            const navLinksContainer = document.querySelector('.nav-links');
+            
+            navToggleBtn.addEventListener('click', () => {
+                document.body.classList.toggle('nav-open');
+                navToggleBtn.classList.toggle('is-active');
+                navLinksContainer.classList.toggle('is-open');
+            });
+
+            // --- Modal Logic ---
             const modal = document.getElementById('enquiry-modal');
             const openModalBtns = document.querySelectorAll('.modal-trigger');
             const closeBtn = document.getElementById('close-modal-btn');
@@ -643,6 +962,7 @@
                 }
             });
 
+            // --- Form Submission Logic ---
             const form = document.getElementById('enquiry-form');
             const formMessage = document.getElementById('form-message');
             form.addEventListener('submit', e => {
